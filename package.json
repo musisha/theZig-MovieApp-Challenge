@@ -1,0 +1,28 @@
+{
+  "name": "nodemovieappback",
+  "version": "1.0.0",
+  "description": "server side for the react client side of the movie app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/musisha/express-movie.git"
+  },
+  "author": "mark musisha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/musisha/express-movie/issues"
+  },
+  "homepage": "https://github.com/musisha/express-movie#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
