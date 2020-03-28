@@ -7,8 +7,6 @@ import { MovieThumb } from "../elements/MovieThumb/MovieThumb";
 import { LoadMoreBtn } from "../elements/LoadMoreBtn/LoadMoreBtn";
 import { Spinner } from "../elements/Spinner/Spinner";
 import {
-  API_KEY,
-  API_URL,
   IMAGE_BASE_URL,
   BACKDROP_SIZE,
   POSTER_SIZE
@@ -27,14 +25,14 @@ export class Home extends React.Component<{}, IHome> {
 
   //when the home component mounts check localstorage,if localstorage true update state with local storage else call fetchData() and pass set endpoint
   componentDidMount() {
-    // if (localStorage.getItem("HomeState")) {
-    //   const state: IHome = JSON.parse(localStorage.getItem("HomeState")!);
-    //   this.setState({ ...state });
-    // } else {
+    if (sessionStorage.getItem("HomeState")) {
+      const state: IHome = JSON.parse(sessionStorage.getItem("HomeState")!);
+      this.setState({ ...state });
+    } else {
     const endpoint = `https://localhost:5001/api/popular`;
     this.setState({ loading: true });
     this.fetchData(endpoint);
-    //}
+    }
   }
 
   //search items methods
@@ -60,10 +58,10 @@ export class Home extends React.Component<{}, IHome> {
     let endpoint: string = "";
     this.setState({ loading: true });
     if (this.state.searchterm === "") {
-      endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${this
+      endpoint = `https://localhost:5001/api/popular/${this
         .state.currentPage + 1}`;
     } else {
-      endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${this.state.searchterm}`;
+      endpoint = `https://localhost:5001/api/search/${this.state.searchterm}`;
     }
 
     this.fetchData(endpoint);

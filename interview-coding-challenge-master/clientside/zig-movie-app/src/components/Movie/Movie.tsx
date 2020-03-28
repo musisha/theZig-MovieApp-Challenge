@@ -1,5 +1,4 @@
 import * as React from "react";
-import { API_KEY, API_URL } from "../../config";
 import "./Movie.css";
 import { Navigation } from "../elements/Navigation/Navigation";
 import { MovieInfo } from "../elements/MovieInfo/MovieInfo";
