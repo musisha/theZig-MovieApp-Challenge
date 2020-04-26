@@ -1,5 +1,7 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -18,23 +20,19 @@ namespace serverside.Services
             _httpClientFactory = httpClientFactory;
         }
 
-
+        //get popular movies
         public async Task<RootObject> GetMovieResults(int page = 1)
         {
-            // Get an instance of HttpClient from the factpry that we registered
-            // in Startup.cs
+            // Get an instance of HttpClient from the factory
             var client = _httpClientFactory.CreateClient("API Client");
 
-            // Call the API & wait for response. 
-            // If the API call fails, call it again according to the re-try policy
-            // specified in Startup.cs
-            var result = await client.GetAsync(string.Format("movie/popular?api_key=efe61e21b11fc4b6ff49e29d28597602&language=en-US&page={0}", page));
+            // Call API and wait for response. 
+            var result = await client.GetAsync(
+                $"movie/popular?api_key={Constants.api_key}{Constants.language}&page={page}");
             if (result.IsSuccessStatusCode)
             {
-                // Read all of the response and deserialise it into an instance of
-                // WeatherForecast class
+                // Read all of the response and deserialize it into an instance
                 var content = await result.Content.ReadAsStringAsync();
-                //var json = Newtonsoft.Json.JsonConvert.SerializeObject(content);
 
                 return JsonConvert.DeserializeObject<RootObject>(content);
 
@@ -50,7 +48,7 @@ namespace serverside.Services
         {
             var client = _httpClientFactory.CreateClient("API Client");
 
-            var result = await client.GetAsync(string.Format("movie/{0}?api_key=efe61e21b11fc4b6ff49e29d28597602&language=en-US", id));
+            var result = await client.GetAsync($"movie/{id}?api_key={Constants.api_key}{Constants.language}");
 
             if (result.IsSuccessStatusCode)
             {
@@ -71,7 +69,8 @@ namespace serverside.Services
 
             var client = _httpClientFactory.CreateClient("API Client");
 
-            var result = await client.GetAsync(string.Format("search/movie?api_key=efe61e21b11fc4b6ff49e29d28597602&language=en-US&query={0}", movieName));
+            var result = await client.GetAsync(
+                $"search/movie?api_key={Constants.api_key}{Constants.language}&query={movieName}");
             if (result.IsSuccessStatusCode)
             {
 
@@ -94,7 +93,8 @@ namespace serverside.Services
 
             var client = _httpClientFactory.CreateClient("API Client");
 
-            var result = await client.GetAsync(string.Format("movie/{0}/credits?api_key=efe61e21b11fc4b6ff49e29d28597602&language=en-US", movieID));
+            var result = await client.GetAsync(
+                $"movie/{movieID}/credits?api_key={Constants.api_key}{Constants.language}S");
             if (result.IsSuccessStatusCode)
             {
 

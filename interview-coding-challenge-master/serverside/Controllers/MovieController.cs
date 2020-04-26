@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using serverside.Domain.Services;
@@ -11,7 +13,7 @@ namespace serverside.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
-        IMovieService _movieService;
+        readonly IMovieService _movieService;
 
 
 
@@ -25,9 +27,10 @@ namespace serverside.Controllers
 
         // GET api/popular/:page   default page is 1
         [HttpGet("popular/{page=1}")]
-        public async Task<IActionResult> GetPopular(int page)
+        public async Task<IActionResult> GetPopular([Optional] int page)
         {
             var model = await _movieService.GetMovieResults(page);
+
             return Ok(model);
         }
 
@@ -36,10 +39,11 @@ namespace serverside.Controllers
 
         // GET api/movie/{id}
         [HttpGet("movie/{id}")]
-        public async Task<IActionResult> GetSingleMovie(int id)
+        public async Task<IActionResult> GetSingleMovie([Required] int id)
         {
             var model = await _movieService.GetSingleMovie(id);
-            return Ok(model);
+ 
+           return Ok(model);
         }
 
 
@@ -48,7 +52,7 @@ namespace serverside.Controllers
 
         //Get Search api/{search}
         [HttpGet("search/{movieName}")]
-        public async Task<IActionResult> GetMovieResults(string movieName)
+        public async Task<IActionResult> GetSearchedMovie([Required] string movieName)
         {
             var model = await _movieService.GetMovieResults(movieName);
             return Ok(model);
