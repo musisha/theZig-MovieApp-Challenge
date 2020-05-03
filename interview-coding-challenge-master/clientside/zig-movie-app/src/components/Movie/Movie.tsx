@@ -7,6 +7,7 @@ import { FourColGrid } from "../elements/FourColGrid/FourColGrid";
 import { Spinner } from "../elements/Spinner/Spinner";
 import { Actor } from "../elements/Actor/Actor";
 import { Props, IState } from "./IMovie";
+import {port, uri} from '../../config';
 
 export class Movie extends React.Component<Props, IState> {
   state: IState = {
@@ -20,7 +21,7 @@ export class Movie extends React.Component<Props, IState> {
   componentDidMount() {
     this.setState({ loading: true });
     //fetch movie
-    const endpoint = `https://localhost:5001/api/movie/${this.props.match.params.movieId}`;
+    const endpoint = `${uri}${port}/api/movie/${this.props.match.params.movieId}`;
     this.fetchData(endpoint);
   }
   fetchData(endpoint: string) {
@@ -36,7 +37,7 @@ export class Movie extends React.Component<Props, IState> {
             },
             () => {
               //get actors
-              const endpoint = `https://localhost:5001/api/credits/${this.props.match.params.movieId}`;
+              const endpoint = `${uri}${port}/api/credits/${this.props.match.params.movieId}`;
               fetch(endpoint)
                 .then(chunk => chunk.json())
                 .then(result => {

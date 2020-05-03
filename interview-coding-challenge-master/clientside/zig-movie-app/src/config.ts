@@ -13,7 +13,9 @@ const IMAGE_BASE_URL: string = "http://image.tmdb.org/t/p/";
 //Sizes: w300, w780, w1280, original
 const BACKDROP_SIZE: string = "w1280";
 
-// w92, w154, w185, w342, w500, w780, original
+// w92, w154, w185, w342, w500, w780, uri, port
 const POSTER_SIZE: string = "w500";
+const port = 44359
+const uri = 'https://localhost:'
 
-export { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE };
+export { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE, port, uri };

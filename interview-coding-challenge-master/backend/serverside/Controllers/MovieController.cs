@@ -48,17 +48,13 @@ namespace serverside.Controllers
 
 
 
-
-
         //Get Search api/{search}
-        [HttpGet("search/{movieName}")]
-        public async Task<IActionResult> GetSearchedMovie([Required] string movieName)
+        [HttpGet("search")]
+        public async Task<IActionResult> GetSearchedMovie([Required] [FromQuery] string movieName)
         {
             var model = await _movieService.GetMovieResults(movieName);
             return Ok(model);
         }
-
-
 
 
 

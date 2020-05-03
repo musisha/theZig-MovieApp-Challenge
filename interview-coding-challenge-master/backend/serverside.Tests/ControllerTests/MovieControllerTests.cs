@@ -9,23 +9,21 @@ namespace serverside.Tests
 {
     public class MovieControllerTests
     {
-        private Mock<IMovieService> _movieService;
+        private Mock<IMovieService> _fakemovieService;
         private MovieController _movieController;
 
 
         [SetUp]
         public void Setup()
         {
-            _movieService = new Mock<IMovieService>();
-            _movieController = new MovieController(_movieService.Object);
+            _fakemovieService = new Mock<IMovieService>();
+            _movieController = new MovieController(_fakemovieService.Object);
         }
 
 
         [Test]
         public void GetPopularMovies_WhenCalled_TaskIActionResult()
         {
-            
-            _movieService.Setup(fs => fs.GetMovieResults(1));
 
             var result = _movieController.GetPopular();
 
@@ -36,7 +34,6 @@ namespace serverside.Tests
         public void GetSingleMovie_WhenCalled_TaskIActionResult()
         {
 
-            _movieService.Setup(fs => fs.GetSingleMovie(1));
 
             var result = _movieController.GetSingleMovie(1);
 
@@ -47,8 +44,6 @@ namespace serverside.Tests
         public void GetSearchedMovie_WhenCalled_TaskIActionResult()
         {
 
-            _movieService.Setup(fs => fs.GetMovieResults(""));
-
             var result = _movieController.GetSearchedMovie("");
 
             Assert.That(result, Is.InstanceOf<Task<IActionResult>>());
@@ -57,8 +52,6 @@ namespace serverside.Tests
         [Test]
         public void GetMovieCast_WhenCalled_TaskIActionResult()
         {
-
-            _movieService.Setup(fs => fs.GetMovieCast(1));
 
             var result = _movieController.GetMovieCast(1);
 

@@ -9,7 +9,9 @@ import { Spinner } from "../elements/Spinner/Spinner";
 import {
   IMAGE_BASE_URL,
   BACKDROP_SIZE,
-  POSTER_SIZE
+  POSTER_SIZE,
+  port,
+  uri
 } from "../../config";
 import { IHome } from "./IHome";
 
@@ -29,7 +31,7 @@ export class Home extends React.Component<{}, IHome> {
       const state: IHome = JSON.parse(sessionStorage.getItem("HomeState")!);
       this.setState({ ...state });
     } else {
-    const endpoint = `https://localhost:5001/api/popular`;
+    const endpoint = `${uri}${port}/api/popular`;
     this.setState({ loading: true });
     this.fetchData(endpoint);
     }
@@ -45,9 +47,9 @@ export class Home extends React.Component<{}, IHome> {
     });
 
     if (search === "") {
-      endpoint = `https://localhost:5001/api/popular`;
+      endpoint = `${uri}${port}/api/popular`;
     } else {
-      endpoint = endpoint = `https://localhost:5001/api/search/${search}`;
+      endpoint = endpoint = `${uri}${port}/api/search/${search}`;
     }
 
     this.fetchData(endpoint);
@@ -58,10 +60,10 @@ export class Home extends React.Component<{}, IHome> {
     let endpoint: string = "";
     this.setState({ loading: true });
     if (this.state.searchterm === "") {
-      endpoint = `https://localhost:5001/api/popular/${this
+      endpoint = `${uri}${port}/api/popular/${this
         .state.currentPage + 1}`;
     } else {
-      endpoint = `https://localhost:5001/api/search/${this.state.searchterm}`;
+      endpoint = `${uri}${port}/api/search/${this.state.searchterm}`;
     }
 
     this.fetchData(endpoint);
