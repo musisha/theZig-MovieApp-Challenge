@@ -19,7 +19,7 @@ namespace serverside.Tests.MovieServiceTests
     [TestFixture]
     class MovieServiceTests
     {
-        private MovieService _service;
+        private MovieRepository _service;
         private Mock<IHttpClientFactory> _mockFactory;
         private Mock<HttpMessageHandler> _fakehttpmessagehandler;
 
@@ -28,7 +28,7 @@ namespace serverside.Tests.MovieServiceTests
         {
             _fakehttpmessagehandler = new Mock<HttpMessageHandler>();
             _mockFactory = new Mock<IHttpClientFactory>();
-            _service = new MovieService(_mockFactory.Object);
+            _service = new MovieRepository(_mockFactory.Object);
 
 
         }

@@ -25,7 +25,7 @@ export class Home extends React.Component<{}, IHome> {
     searchterm: ""
   };
 
-  //when the home component mounts check localstorage,if localstorage true update state with local storage else call fetchData() and pass set endpoint
+  //when the home component mounts check sessionstorage,if sessionstorage true update state with local storage else call fetchData() and pass set endpoint
   componentDidMount() {
     if (sessionStorage.getItem("HomeState")) {
       const state: IHome = JSON.parse(sessionStorage.getItem("HomeState")!);
@@ -49,7 +49,7 @@ export class Home extends React.Component<{}, IHome> {
     if (search === "") {
       endpoint = `${uri}${port}/api/popular`;
     } else {
-      endpoint = endpoint = `${uri}${port}/api/search/${search}`;
+      endpoint = endpoint = `${uri}${port}/api/search?movieName=${search}`;
     }
 
     this.fetchData(endpoint);
@@ -63,7 +63,7 @@ export class Home extends React.Component<{}, IHome> {
       endpoint = `${uri}${port}/api/popular/${this
         .state.currentPage + 1}`;
     } else {
-      endpoint = `${uri}${port}/api/search/${this.state.searchterm}`;
+      endpoint = `${uri}${port}/api/search?movieName=${this.state.searchterm}`;
     }
 
     this.fetchData(endpoint);
