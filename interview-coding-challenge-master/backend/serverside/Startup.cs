@@ -31,7 +31,7 @@ namespace serverside
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddSingleton<IMovieService, MovieRepository>();
+            services.AddTransient<IMovieService, MovieRepository>();
             services.AddControllers();
             services.AddMvc();
             services.AddCors();
